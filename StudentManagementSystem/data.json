@@ -1,0 +1,72 @@
+{
+  "Students": [
+    {
+      "Id": 1,
+      "Name": "Kseniia Lopatenko",
+      "Age": 17
+    },
+    {
+      "Id": 2,
+      "Name": "Dariia Khotab",
+      "Age": 16
+    },
+    {
+      "Id": 3,
+      "Name": "Denys Chub",
+      "Age": 17
+    },
+    {
+      "Id": 4,
+      "Name": "Polina Melaheda",
+      "Age": 16
+    },
+    {
+      "Id": 5,
+      "Name": "Brylee Pope",
+      "Age": 18
+    },
+    {
+      "Id": 6,
+      "Name": "Gunnar Hoffman",
+      "Age": 19
+    }
+  ],
+  "Courses": [
+    {
+      "Id": 1,
+      "Title": "Business Studies"
+    },
+    {
+      "Id": 2,
+      "Title": "Computer Science"
+    },
+    {
+      "Id": 3,
+      "Title": "Computing for Business"
+    }
+  ],
+  "Enrollments": [
+    {
+      "StudentId": 1,
+      "CourseId": 3
+    },
+    {
+      "StudentId": 2,
+      "CourseId": 3
+    },
+    {
+      "StudentId": 3,
+      "CourseId": 3
+    },
+    {
+      "StudentId": 4,
+      "CourseId": 1
+    },
+    {
+      "StudentId": 5,
+      "CourseId": 2
+    }
+  ],
+  "NextStudentId": 7,
+  "NextCourseId": 4
+}

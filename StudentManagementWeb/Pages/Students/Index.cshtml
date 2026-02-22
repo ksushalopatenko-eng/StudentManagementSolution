@@ -1,0 +1,40 @@
+@page
+@model StudentManagementWeb.Pages.Students.IndexModel
+
+<h1>Students</h1>
+
+<p>
+    <a class="btn btn-primary" href="/Students/Create">Add student</a>
+</p>
+
+@if (Model.Students.Count == 0)
+{
+    <p>No students yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th><th>Name</th><th>Age</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var s in Model.Students)
+        {
+            <tr>
+                <td>@s.Id</td>
+                <td>@s.Name</td>
+                <td>@s.Age</td>
+                <td style="display:flex; gap:8px;">
+                    <a class="btn btn-sm btn-secondary" href="/Students/Edit?id=@s.Id">Edit</a>
+
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@s.Id">
+                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

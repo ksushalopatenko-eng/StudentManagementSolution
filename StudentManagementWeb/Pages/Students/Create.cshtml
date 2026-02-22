@@ -1,0 +1,25 @@
+@page
+@model StudentManagementWeb.Pages.Students.CreateModel
+
+<h1>Add student</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input class="form-control" asp-for="Age" />
+        <span class="text-danger" asp-validation-for="Age"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+    <a class="btn btn-secondary" href="/Students">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

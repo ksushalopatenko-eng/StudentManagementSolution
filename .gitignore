@@ -1,0 +1,14 @@
+# .NET build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# User-specific files
+*.user
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
