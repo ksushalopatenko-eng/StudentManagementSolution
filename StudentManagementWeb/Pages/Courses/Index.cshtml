@@ -1,0 +1,39 @@
+@page
+@model StudentManagementWeb.Pages.Courses.IndexModel
+
+<h1>Courses</h1>
+
+<p>
+    <a class="btn btn-primary" href="/Courses/Create">Add course</a>
+</p>
+
+@if (Model.Courses.Count == 0)
+{
+    <p>No courses yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var c in Model.Courses)
+        {
+            <tr>
+                <td>@c.Id</td>
+                <td>@c.Title</td>
+                <td>
+                    <a href="/Courses/Edit?id=@c.Id">Edit</a> |
+                    <a href="/Courses/Delete?id=@c.Id">Delete</a> |
+                    <a href="/Enrollments/CourseStudents?courseId=@c.Id">Students</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,32 @@
+@page
+@model StudentManagementWeb.Pages.Enrollments.CourseStudentsModel
+
+<h1>Course students</h1>
+
+@if (Model.Course is null)
+{
+    <p>Course not found.</p>
+}
+else
+{
+    <p><strong>@Model.Course.Title</strong> (Id: @Model.Course.Id)</p>
+
+    @if (Model.Students.Count == 0)
+    {
+        <p>No students enrolled in this course yet.</p>
+    }
+    else
+    {
+        <ul>
+        @foreach (var s in Model.Students)
+        {
+            <li>@s.Name (Id: @s.Id)</li>
+        }
+        </ul>
+    }
+
+    <p>
+        <a class="btn btn-primary" href="/Enrollments">Enroll</a>
+        <a class="btn btn-secondary" href="/Courses">Back to courses</a>
+    </p>
+}

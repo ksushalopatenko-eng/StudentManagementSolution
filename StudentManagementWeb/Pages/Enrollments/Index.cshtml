@@ -1,0 +1,70 @@
+@page
+@model StudentManagementWeb.Pages.Enrollments.IndexModel
+
+<h1>Enrollments</h1>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<form method="post" class="mb-4">
+    <div class="mb-3">
+        <label class="form-label">Student</label>
+        <select class="form-select" asp-for="StudentId" asp-items="Model.Students">
+            <option value="0">-- Select student --</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        <select class="form-select" asp-for="CourseId" asp-items="Model.Courses">
+            <option value="0">-- Select course --</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Enroll</button>
+</form>
+<h2>All enrollments</h2>
+
+@if (Model.EnrollmentRows.Count == 0)
+{
+    <p>No enrollments yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var e in Model.EnrollmentRows)
+        {
+            <tr>
+                <td>@e.StudentName (Id: @e.StudentId)</td>
+                <td>@e.CourseTitle (Id: @e.CourseId)</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" class="d-inline">
+                        <input type="hidden" name="studentId" value="@e.StudentId" />
+                        <input type="hidden" name="courseId" value="@e.CourseId" />
+                        <button class="btn btn-sm btn-danger" type="submit">Remove</button>
+                    </form>
+
+                    <a class="btn btn-sm btn-secondary"
+                       href="/Enrollments/Edit?studentId=@e.StudentId&courseId=@e.CourseId">
+                        Change
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<p>
+    Tip: You can view student's courses from <a href="/Students">Students</a> page,
+    and course's students from <a href="/Courses">Courses</a> page.
+</p>

@@ -1,0 +1,21 @@
+@page
+@model StudentManagementWeb.Pages.Courses.CreateModel
+
+<h1>Add course</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input class="form-control" asp-for="Course.Title" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+    <a class="btn btn-secondary" href="/Courses">Cancel</a>
+
+    <div class="text-danger mt-2">
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@err.ErrorMessage</div>
+        }
+    </div>
+</form>
