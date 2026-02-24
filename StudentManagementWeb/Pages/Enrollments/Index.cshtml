@@ -25,6 +25,73 @@
 
     <button class="btn btn-primary" type="submit">Enroll</button>
 </form>
+
+<form method="get" class="mb-3 row g-2 align-items-end">
+    <div class="col-md-5">
+        <label class="form-label">Student</label>
+        <input class="form-control"
+               type="text"
+               name="StudentSearch"
+               value="@Model.StudentSearch"
+               placeholder="Search by student name..." />
+    </div>
+
+    <div class="col-md-5">
+        <label class="form-label">Course</label>
+        <input class="form-control"
+               type="text"
+               name="CourseSearch"
+               value="@Model.CourseSearch"
+               placeholder="Search by course title..." />
+    </div>
+
+    <div class="col-md-2 d-flex gap-2">
+        <button class="btn btn-primary w-100" type="submit">Search</button>
+        <a class="btn btn-secondary w-100" href="/Enrollments">Clear</a>
+    </div>
+</form>
+@if (Model.HasSearch)
+{
+    <h2>Search results</h2>
+
+    @if (!Model.HasResults)
+    {
+        <div class="alert alert-warning">
+            No enrollments found.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var e in Model.SearchResults)
+            {
+                <tr class="table-warning">
+                    <td>@e.StudentName (Id: @e.StudentId)</td>
+                    <td>@e.CourseTitle (Id: @e.CourseId)</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" class="d-inline">
+                            <input type="hidden" name="studentId" value="@e.StudentId" />
+                            <input type="hidden" name="courseId" value="@e.CourseId" />
+                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+    <hr class="my-4" />
+}
+
 <h2>All enrollments</h2>
 
 @if (Model.EnrollmentRows.Count == 0)
@@ -51,13 +118,17 @@ else
                     <form method="post" asp-page-handler="Delete" class="d-inline">
                         <input type="hidden" name="studentId" value="@e.StudentId" />
                         <input type="hidden" name="courseId" value="@e.CourseId" />
-                        <button class="btn btn-sm btn-danger" type="submit">Remove</button>
+                        <a class="btn btn-sm btn-secondary"
+                        href="/Enrollments/Edit?studentId=@e.StudentId&courseId=@e.CourseId">
+                        Edit
+                        </a>
+                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                     </form>
 
-                    <a class="btn btn-sm btn-secondary"
+                    @* <a class="btn btn-sm btn-secondary"
                        href="/Enrollments/Edit?studentId=@e.StudentId&courseId=@e.CourseId">
                         Change
-                    </a>
+                    </a> *@
                 </td>
             </tr>
         }

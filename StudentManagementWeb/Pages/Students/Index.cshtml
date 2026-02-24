@@ -7,20 +7,80 @@
     <a class="btn btn-primary" href="/Students/Create">Add student</a>
 </p>
 
-@if (Model.Students.Count == 0)
+<form method="get" class="mb-3 d-flex gap-2">
+    <input class="form-control"
+           type="text"
+           name="Search"
+           value="@Model.Search"
+           placeholder="Search by name..." />
+
+    <button class="btn btn-primary" type="submit">Search</button>
+    <a class="btn btn-secondary" href="/Students">Clear</a>
+</form>
+
+@if (Model.HasSearch)
+{
+    <h2>Search results</h2>
+
+    @if (!Model.HasResults)
+    {
+        <div class="alert alert-warning">
+            No students found for "@Model.Search".
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var s in Model.SearchResults)
+            {
+                <tr class="table-warning">
+                    <td>@s.Id</td>
+                    <td><strong>@s.Name</strong></td>
+                    <td>@s.Age</td>
+                    <td style="display:flex; gap:8px;">
+                        <a class="btn btn-sm btn-secondary" href="/Students/Edit?id=@s.Id">Edit</a>
+
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@s.Id">
+                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+    <hr class="my-4" />
+}
+
+<h2>All students</h2>
+
+@if (Model.AllStudents.Count == 0)
 {
     <p>No students yet.</p>
 }
 else
 {
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Id</th><th>Name</th><th>Age</th><th></th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var s in Model.Students)
+        @foreach (var s in Model.AllStudents)
         {
             <tr>
                 <td>@s.Id</td>

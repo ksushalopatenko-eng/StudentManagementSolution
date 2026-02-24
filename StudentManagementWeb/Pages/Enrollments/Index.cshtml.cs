@@ -25,12 +25,42 @@ public class IndexModel : PageModel
     [TempData]
     public string? Message { get; set; }
 
+    [BindProperty(SupportsGet = true)]
+    public string? StudentSearch { get; set; }
+
+    [BindProperty(SupportsGet = true)]
+    public string? CourseSearch { get; set; }
+
+    public List<EnrollmentRowDto> AllEnrollments { get; set; } = new();
+    public List<EnrollmentRowDto> SearchResults { get; set; } = new();
+
+    public bool HasSearch =>
+        !string.IsNullOrWhiteSpace(StudentSearch) || !string.IsNullOrWhiteSpace(CourseSearch);
+
+    public bool HasResults => SearchResults.Count > 0;
     public async Task OnGetAsync()
     {
         await LoadListsAsync();
         EnrollmentRows = await _api.GetAllEnrollmentsAsync();
-    }
+        AllEnrollments = await _api.GetAllEnrollmentsAsync();
 
+    if (HasSearch)
+    {
+        var sTerm = StudentSearch?.Trim();
+        var cTerm = CourseSearch?.Trim();
+
+        SearchResults = AllEnrollments
+            .Where(e =>
+                (string.IsNullOrWhiteSpace(sTerm) ||
+                e.StudentName.Contains(sTerm, StringComparison.OrdinalIgnoreCase))
+                &&
+                (string.IsNullOrWhiteSpace(cTerm) ||
+                e.CourseTitle.Contains(cTerm, StringComparison.OrdinalIgnoreCase))
+            )
+            .ToList();
+    }
+    }
+    
     public async Task<IActionResult> OnPostAsync()
     {
         if (StudentId <= 0 || CourseId <= 0)
