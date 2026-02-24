@@ -7,6 +7,7 @@ public record StudentUpdateDto(string Name, int Age);
 public record CourseDto(int Id, string Title);
 public record CourseCreateDto(string Title);
 public record CourseUpdateDto(string Title);
+public record StatsDto(int Students, int Courses, int Enrollments);
 
 public record EnrollmentCreateDto(int StudentId, int CourseId);
 public record EnrollmentRowDto(

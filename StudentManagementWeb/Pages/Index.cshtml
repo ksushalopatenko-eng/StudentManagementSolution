@@ -1,10 +1,89 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+@model StudentManagementWeb.Pages.IndexModel
+
+<div class="p-4 p-md-5 mb-4 bg-light rounded-3 border">
+    <div class="container-fluid py-2">
+        <h1 class="display-6 fw-bold">Student Management System</h1>
+        <p class="col-lg-9 fs-5 mb-3">
+            A simple full-stack .NET application for managing students, courses, and enrollments.
+            Built with ASP.NET Core Web API, Razor Pages, and EF Core with SQLite.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-primary btn-lg" href="/Students">Go to students</a>
+            <a class="btn btn-outline-primary btn-lg" href="/Courses">Go to courses</a>
+            <a class="btn btn-outline-primary btn-lg" href="/Enrollments">Go to enrollments</a>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.Error))
+{
+    <div class="alert alert-warning">
+        Could not load statistics from API. @Model.Error
+    </div>
+}
+else if (Model.Stats is not null)
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-muted">Students</div>
+                    <div class="display-6 fw-bold">@Model.Stats.Students</div>
+                    <a class="btn btn-sm btn-outline-primary mt-2" href="/Students">View students</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-muted">Courses</div>
+                    <div class="display-6 fw-bold">@Model.Stats.Courses</div>
+                    <a class="btn btn-sm btn-outline-primary mt-2" href="/Courses">View courses</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-muted">Enrollments</div>
+                    <div class="display-6 fw-bold">@Model.Stats.Enrollments</div>
+                    <a class="btn btn-sm btn-outline-primary mt-2" href="/Enrollments">View enrollments</a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">What you can do</h2>
+                <ul class="mb-0">
+                    <li>Create, edit, and delete students and courses</li>
+                    <li>Enroll students into courses (many-to-many)</li>
+                    <li>Browse relationships: student courses / course students</li>
+                    <li>Search and manage data via a clean UI</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Tech stack</h2>
+                <ul class="mb-0">
+                    <li>ASP.NET Core Web API + Swagger</li>
+                    <li>Razor Pages (UI)</li>
+                    <li>Entity Framework Core + SQLite</li>
+                    <li>REST endpoints + DTOs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
